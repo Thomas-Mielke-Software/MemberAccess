@@ -46,7 +46,7 @@ Now you can access the members by their upper-case properties:
         demoInstance.Id = 42;
         demoInstance.Name = "Foo";
 
-You should make the [GeneratePropertiesForAllPrivateVariables] known to your project somewhere, so the code analyzer doesn't put a red  zig-zag line under it:
+You should make the ``[GeneratePropertiesForAllPrivateVariables]`` known to your project somewhere, so the code analyzer doesn't put a red  zig-zag line under it:
 
     [AttributeUsage(AttributeTargets.Class/* ToDo: | System.AttributeTargets.Struct */, AllowMultiple = false, Inherited = false)]
     public sealed class GeneratePropertiesForAllPrivateVariablesAttribute : Attribute
