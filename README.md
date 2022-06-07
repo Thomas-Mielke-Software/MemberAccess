@@ -4,9 +4,17 @@ C# Source generator helping with certain tasks concerning member access, like ge
 
 Currently, there is only one generator included: ``[GeneratePropertiesForAllPrivateVariables]``
 
-# Usage
+# Intention and Usage
 
-Add a class 
+I recently had a model class with a lot of variable members and was unnerved by having to type ``public`` all along:
+
+    public class Demo
+    {
+        public int id;
+        public string name;
+    }
+
+With this source generator, you can write a class without ``public`` keywords like this:
 
     [GeneratePropertiesForAllPrivateVariables]
     public partial class Demo
