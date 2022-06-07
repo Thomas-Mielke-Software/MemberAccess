@@ -2,7 +2,7 @@
 
 C# Source generator helping with certain tasks concerning member access, like generating public properties for private variables.
 
-Currently, there is only one generator ``[GeneratePropertiesForAllPrivateVariables]`` included. In the future I plan other generators, for exampt to translate snake_case to CamelCase or to provide support for [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) attributes on class level.
+Currently, there is only one generator ``[GeneratePropertiesForAllPrivateVariables]`` included. In the future I plan other generators, for exampt to translate snake_case to CamelCase properties or to provide support for [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) attributes on class level.
 
 # Intention and Usage
 
