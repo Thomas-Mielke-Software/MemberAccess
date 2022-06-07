@@ -39,8 +39,8 @@ This will generate the following shadow class with accessors:
             set => name = value;
         }
     }
-    
-Now you can access the members by their upper-case properties:
+
+Now you can access the members by their upper-case properties (Note: also C++style m_ and _ prefixes are translated correctly):
 
         var demoInstance = new Demo();
         demoInstance.Id = 42;
