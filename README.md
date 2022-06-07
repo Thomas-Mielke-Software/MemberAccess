@@ -1,6 +1,6 @@
 # MemberAccess
 
-C# Source generator helping with certain tasks concerning member access, like generating public properties for private variables
+C# Source generator helping with certain tasks concerning member access, like generating public properties for private variables.
 
 Currently, there is only one generator included: ``[GeneratePropertiesForAllPrivateVariables]``
 
