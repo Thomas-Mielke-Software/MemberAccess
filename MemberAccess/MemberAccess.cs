@@ -24,6 +24,9 @@ namespace MemberAccess
     [AttributeUsage(AttributeTargets.Class/* ToDo: | System.AttributeTargets.Struct */, AllowMultiple = false, Inherited = false)]
     public sealed class GeneratePropertiesForAllPrivateVariablesAttribute : Attribute
     {
+        public GeneratePropertiesForAllPrivateVariablesAttribute(bool snakeCase2CamelCase = false)
+        {
+        }
     }
 
     [Generator]
@@ -61,6 +64,18 @@ namespace MemberAccess
                     string className = declaredClass.Identifier.ToString();
                     var generatedClass = this.GenerateClass(declaredClass);
 
+                    // get the attributes parameter to see if snake_case to CamelCase transformations has to be done
+                    bool snakeCase2CamelCase = false;
+                    var attributes = declaredClass.AttributeLists.SelectMany(al => al.Attributes)
+                                        .Where(a => a.Name.GetText().ToString() == "GeneratePropertiesForAllPrivateVariables");
+                    
+                    if (attributes.Count() >= 1)
+                    {
+                        var attargs = attributes.ElementAt(0).ArgumentList;
+                        if (attargs?.Arguments.Count() == 1 && attargs.Arguments.ElementAt(0).ToString() == "true")
+                            snakeCase2CamelCase = true;
+                    }
+
                     foreach (var classMember in declaredClass.Members)
                     {
                         // is field declaration?
@@ -95,6 +110,9 @@ namespace MemberAccess
                                         else if (privateIdentifier.Substring(0, 2) == "m_")
                                             publicIdentifier = privateIdentifier[2].ToString().ToUpper() + privateIdentifier.Substring(3);
 
+                                        if (snakeCase2CamelCase)  // e.g. first_name -> FirstName
+                                            publicIdentifier = ToCamelCase(publicIdentifier);
+
                                         if (publicIdentifier != null)
                                         {
                                             // ToDo: didn't gigure out how to replace the private identifier with public one in the declarator
@@ -113,6 +131,15 @@ namespace MemberAccess
                     context.AddSource($"{GetNamespace(declaredClass)}_{className}.g", SourceText.From(generatedClass.ToString(), Encoding.UTF8));
                 }
             }
+        }
+
+        private string ToCamelCase(string str)
+        {
+            var words = str.Split(new[] { "_", " " }, StringSplitOptions.RemoveEmptyEntries);
+            words = words
+                .Select(word => char.ToUpper(word[0]) + word.Substring(1))
+                .ToArray();
+            return string.Join(string.Empty, words);
         }
 
         private StringBuilder GenerateClass(ClassDeclarationSyntax c)

@@ -5,6 +5,9 @@
 [AttributeUsage(AttributeTargets.Class/* ToDo: | System.AttributeTargets.Struct */, AllowMultiple = false, Inherited = false)]
 public sealed class GeneratePropertiesForAllPrivateVariablesAttribute : Attribute
 {
+    public GeneratePropertiesForAllPrivateVariablesAttribute(bool snakeCase2CamelCase = false)
+    {
+    }
 }
 
 [GeneratePropertiesForAllPrivateVariables]
@@ -12,6 +15,13 @@ public partial class Demo
 {
     int id;
     string name;
+}
+
+[GeneratePropertiesForAllPrivateVariables(true)]
+public partial class DemoWithSnakeCaseMembers
+{
+    string first_name;
+    string last_name;
 }
 
 partial class Program

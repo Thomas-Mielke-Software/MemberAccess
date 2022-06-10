@@ -2,7 +2,7 @@
 
 C# Source generator helping with certain tasks concerning member access, like generating public properties for private variables.
 
-Currently, there is only one generator ``[GeneratePropertiesForAllPrivateVariables]`` included. In the future I plan other generators, for exampt to translate snake_case to CamelCase properties or to provide support for [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) attributes on class level.
+Currently, there is only one generator ``[GeneratePropertiesForAllPrivateVariables]`` included. In the future I plan other generators, for example to to provide support for [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) attributes on class level.
 
 # Intention and Usage
 
@@ -52,7 +52,20 @@ You should make the ``[GeneratePropertiesForAllPrivateVariables]`` attribute kno
     public sealed class GeneratePropertiesForAllPrivateVariablesAttribute : Attribute
     {
     }
-    
+
+# Support for snake_case to CamelCase transformation
+
+Models from APIs often come in the snake_case json form. If you set the attribute argument ``snakeCase2CamelCase`` to ``true``, a snake_case to CamelCase transformation for each private variable member takes place:
+
+    [GeneratePropertiesForAllPrivateVariables(true)]
+    public partial class Demo
+    {
+        string first_name;
+        string last_name;
+    }
+
+This way you have an easier time adapting the server-side models to C# conformimg CamelCase.
+
 # Limitations
 
 Currently only public non-static classes are supported. It's a bit hacky here and there, but should do the job in 99% of all cases. Consider it a v0.1. Look for 'ToDo', if you want to know more.
