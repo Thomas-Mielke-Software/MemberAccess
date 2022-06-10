@@ -53,6 +53,14 @@ You should make the ``[GeneratePropertiesForAllPrivateVariables]`` attribute kno
     {
     }
 
+You also need to reference the source generator as "Analyzer" from the consuming project:
+
+  <ItemGroup>
+	  <ProjectReference Include="..\MemberAccess\MemberAccess.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+After this (and possibly a Visual Studio restart), you will be able to check the generated code in Solution Explorer under References -> Analyse -> MemberAccess.
+
 # Support for snake_case to CamelCase transformation
 
 Models from APIs often come in the snake_case json form. If you set the attribute argument ``snakeCase2CamelCase`` to ``true``, a snake_case to CamelCase transformation for each private variable member takes place:
